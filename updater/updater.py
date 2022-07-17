@@ -1,12 +1,11 @@
-import sys
 import time
 
 import numpy as np
-import path_fix
-from db_urlconfig import get_db_url
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+import path_fix
+from db_urlconfig import get_db_url
 from models import WinningNumber
 
 
