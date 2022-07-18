@@ -1,6 +1,5 @@
 name: staging
-on: 
-  workflow dispatch:
+on: push
 
 concurrency:
   group: staging-${{ github.ref }}
