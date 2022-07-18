@@ -1,0 +1,25 @@
+name: staging
+on: 
+  workflow dispatch:
+
+concurrency:
+  group: staging-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: deploy-staging
+    environment: staging
+    runs-on: sv_results_app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Stop & remove existing container
+        run: docker-compose down
+
+      - name: Build Image
+        run: docker-compose build
+
+      - name: Run container
+        run: docker-compose up

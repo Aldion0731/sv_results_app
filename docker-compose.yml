@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  database:
+    image: postgres
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+  migrations:
+    build:
+      context: .
+      dockerfile: database/Dockerfile
+    depends_on:
+      - database
+  updater:
+    build:
+      context: .
+      dockerfile: updater/Dockerfile
+    depends_on:
+      - migrations
+  app:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    ports:
+      - 8501:8501
+    depends_on:
+      - updater
+volumes:
+  db_volume:
+  
