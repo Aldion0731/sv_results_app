@@ -11,7 +11,7 @@ RUN pipenv install --system --deploy
 COPY /app/ /sv_results_app/app/
 COPY /database/ /sv_results_app/database/
 COPY /updater/ /sv_results_app/updater/
-COPY .env /sv_results_app/
+
 
 EXPOSE 8501
 
