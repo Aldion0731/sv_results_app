@@ -5,6 +5,8 @@ from alembic import context
 from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 
+load_dotenv()
+
 from models import Base
 
 target_metadata = Base.metadata
