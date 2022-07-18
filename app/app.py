@@ -1,11 +1,14 @@
 import pandas as pd
 import streamlit as st
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 import path_fix
 from db_urlconfig import get_db_url
 from models import WinningNumber
+
+load_dotenv()
 
 
 def write():
@@ -23,7 +26,6 @@ class MyConnection:
         with self.session_maker() as session:
             numbers = session.query(WinningNumber.number, WinningNumber.bonus).all()
             session.commit()
-
         return numbers
 
 

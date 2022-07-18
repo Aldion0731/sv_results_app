@@ -18,7 +18,6 @@ class MyConnection:
         scores = WinningNumber(number=scores[0], bonus=scores[1])
         with self.session_maker() as session:
             session.add(scores)
-
             session.commit()
 
 
