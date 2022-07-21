@@ -5,16 +5,15 @@ concurrency:
   group: staging-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  DB_USER: ${{ secrets.DB_USER }}
-  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-  DB_HOST: ${{ secrets.DB_HOST }}
-  DB_PORT: ${{ secrets.DB_PORT }}
-  DB_NAME: ${{ secrets.DB_NAME }}
-
 jobs:
   deploy:
     name: deploy-staging
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
     environment: staging
     runs-on: ubuntu-latest
     steps:
@@ -28,4 +27,4 @@ jobs:
         run: docker-compose build
 
       - name: Run container
-        run: docker-compose up
+        run: docker-compose up -d 
