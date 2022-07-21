@@ -12,6 +12,12 @@ services:
     build:
       context: .
       dockerfile: database/Dockerfile
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+      DB_HOST: ${DB_HOST}
     depends_on:
       - database
   updater:
@@ -20,6 +26,12 @@ services:
       dockerfile: updater/Dockerfile
     depends_on:
       - migrations
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+      DB_HOST: ${DB_HOST}
   app:
     build:
       context: .
@@ -28,6 +40,12 @@ services:
       - 8501:8501
     depends_on:
       - updater
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+      DB_HOST: ${DB_HOST}
 volumes:
   db_volume:
   
