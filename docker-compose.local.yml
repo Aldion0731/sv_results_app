@@ -1,0 +1,40 @@
+services:
+  database:
+    container_name: dev_database
+    volumes:
+      - local_db_volume:/var/lib/postgresql/data
+  migrations:
+    container_name: dev_migrations
+
+  updater:
+    container_name: dev_updater
+    build:
+      dockerfile: dev/updater/Dockerfile
+    volumes:
+    - type: bind
+      source: .
+      target: /proj-dir/
+      read_only: True   
+
+  app:
+    container_name: dev_app
+    build:
+      dockerfile: dev/app/Dockerfile
+    ports:
+      - 8501:8501
+    depends_on:
+      - updater
+    volumes:
+      - type: bind
+        source: .
+        target: /proj-dir/
+        read_only: True        
+
+  admin:
+    image:
+      adminer
+    ports:
+      - 8080:8080
+volumes:
+  local_db_volume:
+  
